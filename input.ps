@@ -1,0 +1,65 @@
+%https://ankiewicz.com/design/fractals/
+%(c) K Ankiewicz
+/depth 0 def
+/maxdepth 14 def
+/down {/depth depth 1 add def} def
+/up {/depth depth 1 sub def} def
+
+/doaline
+{ 0 0 moveto
+0 200 rlineto currentpoint
+stroke translate 0 0 moveto
+} def
+
+/doacircle
+{
+    0 0 40 0 360 arc 
+depth maxdepth 0 add  div  
+depth maxdepth 0 add  div 
+depth maxdepth 2 add div  
+setrgbcolor fill
+0 0 40 0 360 arc 
+depth maxdepth 0 add  div  
+depth maxdepth 0 add  div 
+depth maxdepth 2 add div  
+sethsbcolor stroke
+} def
+
+/doashape
+{80 0 translate doacircle 
+-80 0 translate doacircle 
+0 80 translate doacircle 
+80 0 translate doacircle 
+} def
+
+
+/doathing
+{ 0 0 moveto
+depth 20 mul depth 20 mul rlineto currentpoint
+depth fill
+stroke translate 0 0 moveto
+} def
+
+/makefractala
+{
+    gsave
+.65 .85 scale
+down 
+doashape
+depth maxdepth le {
+45 rotate makefractala
+-90 rotate makefractala
+} if
+
+up grestore
+} 
+def
+
+20 setlinewidth
+320 400 translate 
+43 rotate
+makefractala
+180 rotate
+makefractala
+
+showpage
